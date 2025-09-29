@@ -1,0 +1,5 @@
+{
+  "name": "Kapsel Tymbark AI",
+  "description": "Aplikacja, która losuje inspirujące i zabawne teksty, tak jak pod kapslami popularnego napoju Tymbark, wykorzystując do tego sztuczną inteligencję Gemini.",
+  "requestFramePermissions": []
+}
