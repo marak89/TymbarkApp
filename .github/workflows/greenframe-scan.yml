@@ -1,0 +1,40 @@
+name: Lighthouse CI Audit
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  lighthouse_audit:
+    name: Lighthouse Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Start local server
+        run: npm start &
+
+      - name: Wait for server
+        run: sleep 5 # Give the server a moment to start up
+
+      - name: Run Lighthouse CI Action
+        uses: treosh/lighthouse-ci-action@v11
+        with:
+          # Aplikacja działa na serwerze lokalnym uruchomionym w poprzednim kroku
+          urls: |
+            http://localhost:8080
+          # Zapisz raporty Lighthouse jako artefakty workflow
+          uploadArtifacts: true
+          # Opcjonalnie: prześlij raport do tymczasowego publicznego хранилища i uzyskaj link
+          temporaryPublicStorage: true
